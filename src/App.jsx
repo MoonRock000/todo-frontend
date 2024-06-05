@@ -1,7 +1,10 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Header from "./components/Header";
 import UserSignupForm from "./components/SignUpForm";
+import UserLoginForm from "./components/LoginForm";
+import { useState } from "react";
 function App() {
+  const [showSignUp, setShowSignUp] = useState(true);
   return (
     <Grid
       templateAreas={`"header"
@@ -15,10 +18,20 @@ function App() {
         <Header />
       </GridItem>
       <GridItem area={"main"}>
-        <UserSignupForm />
+        {showSignUp && (
+          <UserSignupForm
+            showSignUp={showSignUp}
+            toggleShowSignUp={setShowSignUp}
+          />
+        )}
       </GridItem>
-      <GridItem pl="2" bg="blue.300" area={"footer"}>
-        Footer
+      <GridItem area={"footer"}>
+        {!showSignUp && (
+          <UserLoginForm
+            showSignUp={showSignUp}
+            toggleShowSignUp={setShowSignUp}
+          />
+        )}
       </GridItem>
     </Grid>
   );

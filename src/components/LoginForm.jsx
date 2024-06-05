@@ -14,11 +14,6 @@ import {
 } from "@chakra-ui/react";
 // Define the validation schema using zod
 const schema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .min(4, "Name must be at least 4 characters")
-    .max(50, "Name must be at most 50 characters"),
   email: z
     .string()
     .min(1, "Email is required")
@@ -29,7 +24,7 @@ const schema = z.object({
     .max(50, "Password must be at most 50 characters"),
 });
 
-const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
+const UserLoginForm = ({ toggleShowSignUp, showSignUp }) => {
   const {
     register,
     handleSubmit,
@@ -45,9 +40,9 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
 
   return (
     <SlideFade
-      in={showSignUp}
+      in={true}
       offsetY="20px"
-      transition={{ enter: { duration: 0.5 } }}
+      transition={{ exit: { delay: 1 }, enter: { duration: 0.5 } }}
     >
       <Container
         maxWidth={"900px"}
@@ -56,18 +51,12 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
         padding={5}
         marginY={5}
       >
-        <Heading mb={5}>Sign Up</Heading>
+        <Heading mb={5}>Log In</Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl
-            isInvalid={errors.name || errors.email || errors.password}
+            isInvalid={errors.email || errors.password}
             color={"teal"}
           >
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input id="name" placeholder="Full name" {...register("name")} />
-            <FormErrorMessage>
-              {errors.name && errors.name.message}
-            </FormErrorMessage>
-
             <FormLabel htmlFor="email">Email</FormLabel>
             <Input
               id="email"
@@ -90,20 +79,19 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
             </FormErrorMessage>
 
             <Button type="submit" colorScheme="teal" marginY={6}>
-              Sign Up
+              Log In
             </Button>
           </FormControl>
         </form>
-
         <Button
           colorScheme="blue"
           onClick={() => toggleShowSignUp(!showSignUp)}
         >
-          Already have an account?
+          Need an account?
         </Button>
       </Container>
     </SlideFade>
   );
 };
 
-export default UserSignupForm;
+export default UserLoginForm;
