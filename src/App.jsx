@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Header from "./components/Header";
+import UserSignupForm from "./components/SignUpForm";
 function App() {
   return (
     <Grid
@@ -13,8 +14,8 @@ function App() {
       <GridItem area={"header"} justifyContent={"center"}>
         <Header />
       </GridItem>
-      <GridItem pl="2" bg="green.300" area={"main"}>
-        Main
+      <GridItem area={"main"}>
+        <UserSignupForm />
       </GridItem>
       <GridItem pl="2" bg="blue.300" area={"footer"}>
         Footer
