@@ -1,15 +1,17 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
+import Header from "./components/Header";
 function App() {
   return (
     <Grid
       templateAreas={`"header"
                       "main"
                       "footer"`}
+      templateColumns={{ base: "1 fr" }}
       gap="1"
       color="blackAlpha.700"
     >
-      <GridItem pl="2" bg="orange.300" area={"header"}>
-        Header
+      <GridItem area={"header"} justifyContent={"center"}>
+        <Header />
       </GridItem>
       <GridItem pl="2" bg="green.300" area={"main"}>
         Main
