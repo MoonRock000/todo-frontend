@@ -12,6 +12,8 @@ import {
   SlideFade,
   Heading,
 } from "@chakra-ui/react";
+import { signUpUser } from "../api/userAuth";
+import { setSessionStorage } from "../storage/sessionStorage";
 // Define the validation schema using zod
 const schema = z.object({
   name: z
@@ -29,7 +31,7 @@ const schema = z.object({
     .max(50, "Password must be at most 50 characters"),
 });
 
-const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
+const UserSignupForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
   const {
     register,
     handleSubmit,
@@ -39,8 +41,17 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
   });
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    // Add your form submission logic here
+    signUpUser(data)
+      .then((response) => {
+        const user = response.data.user;
+
+        setSessionStorage(
+          response.data.token,
+          JSON.stringify({ name: user.name })
+        );
+        setLoggedIn(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

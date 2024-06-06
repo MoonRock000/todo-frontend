@@ -4,7 +4,7 @@ import UserSignupForm from "./SignUpForm";
 import UserLoginForm from "./LoginForm";
 import { useState } from "react";
 
-const AuthPage = () => {
+const AuthPage = ({ setLoggedIn }) => {
   const [showSignUp, setShowSignUp] = useState(true);
   return (
     <Grid
@@ -23,6 +23,7 @@ const AuthPage = () => {
           <UserSignupForm
             showSignUp={showSignUp}
             toggleShowSignUp={setShowSignUp}
+            setLoggedIn={setLoggedIn}
           />
         )}
       </GridItem>
@@ -31,6 +32,7 @@ const AuthPage = () => {
           <UserLoginForm
             showSignUp={showSignUp}
             toggleShowSignUp={setShowSignUp}
+            setLoggedIn={setLoggedIn}
           />
         )}
       </GridItem>
