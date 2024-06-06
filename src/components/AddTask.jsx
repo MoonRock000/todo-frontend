@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { createTask } from "../api/tasksApi";
 
-const AddTask = ({ todos, setTodos }) => {
+const AddTask = ({ setTodos }) => {
   const ref = useRef(null);
 
   return (
@@ -22,9 +22,9 @@ const AddTask = ({ todos, setTodos }) => {
         }}
       >
         <InputGroup marginBottom={5}>
-          <InputLeftElement
-            children={<BsPlusCircleFill color="teal" size={30} />}
-          />
+          <InputLeftElement>
+            <BsPlusCircleFill color="teal" size={30} />
+          </InputLeftElement>
           <Input
             borderRadius={20}
             placeholder="Add Task..."

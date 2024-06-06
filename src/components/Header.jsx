@@ -7,15 +7,19 @@ import {
   CardFooter,
 } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
-import { deleteToken } from "../storage/sessionStorage";
+import { deleteToken, getToken } from "../storage/sessionStorage";
+import { useMemo } from "react";
+import { useNavigate } from "react-router";
 
-const Header = ({ setLoggedIn, loggedIn }) => {
+const Header = () => {
+  const navigate = useNavigate();
+  const token = useMemo(() => getToken(), []);
+
   return (
-    <Container maxWidth={"1050px"} marginY={"20px"}>
+    <Container maxWidth={"100%"} marginY={"20px"}>
       <Card borderRadius={"10px"} bgColor={"orange.100"}>
         <HStack
           justifyContent={"space-between"}
-          paddingX={"20px"}
           color={"teal"}
           height={"100px"}
         >
@@ -24,14 +28,14 @@ const Header = ({ setLoggedIn, loggedIn }) => {
           </Text>
           <ColorModeSwitch />
         </HStack>
-        {loggedIn && (
+        {token && (
           <CardFooter>
             <Button
               colorScheme="red"
               variant={"ghost"}
               onClick={() => {
                 deleteToken();
-                setLoggedIn(false);
+                navigate("/");
               }}
             >
               Log Out

@@ -1,10 +1,10 @@
-import { Grid, GridItem } from "@chakra-ui/react";
-import Header from "./Header";
-import UserSignupForm from "./SignUpForm";
-import UserLoginForm from "./LoginForm";
 import { useState } from "react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import Header from "../components/Header";
+import UserSignupForm from "../components/SignUpForm";
+import UserLoginForm from "../components/LoginForm";
 
-const AuthPage = ({ setLoggedIn }) => {
+const AuthPage = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   return (
     <Grid
@@ -15,15 +15,11 @@ const AuthPage = ({ setLoggedIn }) => {
       gap="1"
       color="blackAlpha.700"
     >
-      <GridItem area={"header"} justifyContent={"center"}>
-        <Header />
-      </GridItem>
       <GridItem area={"main"}>
         {showSignUp && (
           <UserSignupForm
             showSignUp={showSignUp}
             toggleShowSignUp={setShowSignUp}
-            setLoggedIn={setLoggedIn}
           />
         )}
       </GridItem>
@@ -32,7 +28,6 @@ const AuthPage = ({ setLoggedIn }) => {
           <UserLoginForm
             showSignUp={showSignUp}
             toggleShowSignUp={setShowSignUp}
-            setLoggedIn={setLoggedIn}
           />
         )}
       </GridItem>

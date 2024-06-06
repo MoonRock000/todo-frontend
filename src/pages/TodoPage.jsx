@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import { useEffect, useState } from "react";
 import { Grid, GridItem, Container } from "@chakra-ui/react";
-
-import AddTask from "./AddTask";
-import TasksList from "./TasksList";
+import Header from "../components/Header";
+import AddTask from "../components/AddTask";
+import TasksList from "../components/TasksList";
+import TaskSkeleton from "../components/TaskSkeleton";
 import { getTasks } from "../api/tasksApi";
-import TaskSkeleton from "./TaskSkeleton";
 import { getToken } from "../storage/sessionStorage";
 
-const TodoList = ({ setLoggedIn, loggedIn }) => {
+const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const sampleTodos = [1, 2, 3, 4, 5];
   const [loading, setLoading] = useState(false);
@@ -35,9 +34,6 @@ const TodoList = ({ setLoggedIn, loggedIn }) => {
         gap="1"
         color="blackAlpha.700"
       >
-        <GridItem area={"header"} justifyContent={"center"}>
-          <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
-        </GridItem>
         <GridItem area={"main"}>
           <Container>
             <AddTask todos={todos} setTodos={setTodos} />

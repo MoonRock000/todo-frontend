@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { signUpUser } from "../api/userAuth";
 import { setSessionStorage } from "../storage/sessionStorage";
+import { useNavigate } from "react-router";
 // Define the validation schema using zod
 const schema = z.object({
   name: z
@@ -31,7 +32,8 @@ const schema = z.object({
     .max(50, "Password must be at most 50 characters"),
 });
 
-const UserSignupForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
+const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -49,7 +51,7 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
           response.data.token,
           JSON.stringify({ name: user.name })
         );
-        setLoggedIn(true);
+        navigate("/");
       })
       .catch((err) => {});
   };
