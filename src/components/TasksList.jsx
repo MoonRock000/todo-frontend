@@ -6,6 +6,8 @@ import {
   Divider,
   ButtonGroup,
   Button,
+  Badge,
+  Heading,
 } from "@chakra-ui/react";
 import { deleteTask, editTask } from "../api/tasksApi";
 import { useState } from "react";
@@ -26,8 +28,19 @@ const TasksList = ({ todos, setTodos }) => {
       )}
       {todos.map((todo) => (
         <Card marginBottom={5} key={todo.id}>
-          <CardHeader>{todo.description}</CardHeader>
-          <CardBody>Status: {todo.status}</CardBody>
+          <CardHeader>
+            <Heading fontSize={"xl"}>{todo.description}</Heading>
+          </CardHeader>
+          <CardBody>
+            <Badge
+              colorScheme={todo.status == "complete" ? "green" : "orange"}
+              size={"20"}
+              variant={"solid"}
+              padding={"5px"}
+            >
+              Status: {todo.status == "pending" ? " Pending" : " Complete"}
+            </Badge>
+          </CardBody>
           <Divider />
           <CardFooter>
             <ButtonGroup spacing="2">
