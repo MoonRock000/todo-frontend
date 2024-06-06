@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     let token = sessionStorage.getItem("token");
-    if (token) setLoggedIn(true);
+    if (token && token != undefined) setLoggedIn(true);
   }, []);
   if (loggedIn) {
     return (

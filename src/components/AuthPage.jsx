@@ -5,7 +5,7 @@ import UserLoginForm from "./LoginForm";
 import { useState } from "react";
 
 const AuthPage = ({ setLoggedIn }) => {
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [showSignUp, setShowSignUp] = useState(false);
   return (
     <Grid
       templateAreas={`"header"

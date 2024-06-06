@@ -38,7 +38,9 @@ const UserLoginForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
   const onSubmit = (data) => {
     loginUser(data)
       .then((response) => {
-        setSessionStorage(response.data.token);
+        const user = response.data.user;
+        const token = response.data.token;
+        setSessionStorage(token, user.name);
         setLoggedIn(true);
       })
       .catch((err) => console.log(err));

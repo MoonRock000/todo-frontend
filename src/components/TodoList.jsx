@@ -4,6 +4,8 @@ import { Grid, GridItem, Container } from "@chakra-ui/react";
 
 import AddTask from "./AddTask";
 import TasksList from "./TasksList";
+import { getTasks } from "../api/tasksApi";
+import TaskSkeleton from "./TaskSkeleton";
 
 const TodoList = () => {
   const [sampleTodos, setSampleTodos] = useState([
@@ -12,6 +14,18 @@ const TodoList = () => {
     { description: "Third Task", status: "Complete" },
     { description: "Fourth Task", status: "pending" },
   ]);
+
+  const [loading, setLoading] = useState(false);
+
+  useState(() => {
+    setLoading(true);
+    const token = sessionStorage.getItem("token");
+    getTasks(token).then((response) => {
+      console.log(response.data.tasks);
+      setSampleTodos(response.data.tasks);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -31,6 +45,8 @@ const TodoList = () => {
               sampleTodos={sampleTodos}
               setSampleTodos={setSampleTodos}
             />
+            {loading &&
+              sampleTodos.map((_, index) => <TaskSkeleton key={index} />)}
             <TasksList
               sampleTodos={sampleTodos}
               setSampleTodos={setSampleTodos}
