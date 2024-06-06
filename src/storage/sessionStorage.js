@@ -3,4 +3,8 @@ const setSessionStorage = (token, user) => {
   if (user) sessionStorage.setItem("user", user);
 };
 
-export { setSessionStorage };
+function getToken() {
+  const token = sessionStorage.getItem("token");
+  return token;
+}
+export { setSessionStorage, getToken };

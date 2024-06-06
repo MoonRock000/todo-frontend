@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { Grid, GridItem, Container } from "@chakra-ui/react";
 
@@ -6,25 +6,24 @@ import AddTask from "./AddTask";
 import TasksList from "./TasksList";
 import { getTasks } from "../api/tasksApi";
 import TaskSkeleton from "./TaskSkeleton";
+import { getToken } from "../storage/sessionStorage";
 
 const TodoList = () => {
-  const [sampleTodos, setSampleTodos] = useState([
-    { description: "First Task", status: "pending" },
-    { description: "Second Task", status: "Complete" },
-    { description: "Third Task", status: "Complete" },
-    { description: "Fourth Task", status: "pending" },
-  ]);
-
+  const [todos, setTodos] = useState([]);
+  const sampleTodos = [1, 2, 3, 4, 5];
   const [loading, setLoading] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     setLoading(true);
-    const token = sessionStorage.getItem("token");
-    getTasks(token).then((response) => {
-      console.log(response.data.tasks);
-      setSampleTodos(response.data.tasks);
-      setLoading(false);
-    });
+    const token = getToken();
+    getTasks(token)
+      .then((response) => {
+        setTodos(response.data.tasks);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -41,16 +40,10 @@ const TodoList = () => {
         </GridItem>
         <GridItem area={"main"}>
           <Container>
-            <AddTask
-              sampleTodos={sampleTodos}
-              setSampleTodos={setSampleTodos}
-            />
+            <AddTask todos={todos} setTodos={setTodos} />
             {loading &&
               sampleTodos.map((_, index) => <TaskSkeleton key={index} />)}
-            <TasksList
-              sampleTodos={sampleTodos}
-              setSampleTodos={setSampleTodos}
-            />
+            <TasksList todos={todos} setTodos={setTodos} />
           </Container>
         </GridItem>
       </Grid>

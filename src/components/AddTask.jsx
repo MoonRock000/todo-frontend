@@ -1,8 +1,9 @@
 import { InputGroup, InputLeftElement, Input, Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { createTask } from "../api/tasksApi";
 
-const AddTask = ({ sampleTodos, setSampleTodos }) => {
+const AddTask = ({ todos, setTodos }) => {
   const ref = useRef(null);
 
   return (
@@ -11,11 +12,11 @@ const AddTask = ({ sampleTodos, setSampleTodos }) => {
         onSubmit={(event) => {
           event.preventDefault();
           if (ref.current) {
-            setSampleTodos([
-              { description: ref.current.value, status: "pending" },
-              ...sampleTodos,
-            ]);
-
+            createTask(ref.current.value)
+              .then((respose) => {
+                setTodos(respose.data.tasks);
+              })
+              .catch((e) => {});
             event.target.reset();
           }
         }}

@@ -1,3 +1,4 @@
+import { getToken } from "../storage/sessionStorage";
 import { apiClient } from "./apiClient";
 
 async function getTasks(token) {
@@ -9,5 +10,31 @@ async function getTasks(token) {
 
   return result;
 }
+async function createTask(description) {
+  const token = getToken();
+  const result = await apiClient.post(
+    "/tasks",
+    {
+      task: { description: description, status: "pending" },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-export { getTasks };
+  return result;
+}
+async function deleteTask(id) {
+  const token = getToken();
+  const result = await apiClient.delete(`/tasks/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return result;
+}
+
+export { getTasks, createTask, deleteTask };

@@ -7,18 +7,29 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
+import { deleteTask } from "../api/tasksApi";
 
-const TasksList = ({ sampleTodos, setSampleTodos }) => {
+const TasksList = ({ todos, setTodos }) => {
   return (
-    <div>
-      {sampleTodos.map((todo) => (
-        <Card marginBottom={5} key={todo.description}>
+    <>
+      {todos.map((todo) => (
+        <Card marginBottom={5} key={todo.id}>
           <CardHeader>{todo.description}</CardHeader>
           <CardBody>Status: {todo.status}</CardBody>
           <Divider />
           <CardFooter>
             <ButtonGroup spacing="2">
-              <Button variant="ghost" colorScheme="red">
+              <Button
+                variant="ghost"
+                colorScheme="red"
+                onClick={() =>
+                  deleteTask(todo.id)
+                    .then((response) => {
+                      setTodos(response.data.tasks);
+                    })
+                    .catch((error) => {})
+                }
+              >
                 Delete
               </Button>
               <Button variant="solid" colorScheme="blue">
@@ -31,7 +42,7 @@ const TasksList = ({ sampleTodos, setSampleTodos }) => {
           </CardFooter>
         </Card>
       ))}
-    </div>
+    </>
   );
 };
 
