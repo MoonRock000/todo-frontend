@@ -7,4 +7,7 @@ function getToken() {
   const token = sessionStorage.getItem("token");
   return token;
 }
-export { setSessionStorage, getToken };
+function deleteToken() {
+  sessionStorage.removeItem("token");
+}
+export { setSessionStorage, getToken, deleteToken };

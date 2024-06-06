@@ -8,7 +8,7 @@ import { getTasks } from "../api/tasksApi";
 import TaskSkeleton from "./TaskSkeleton";
 import { getToken } from "../storage/sessionStorage";
 
-const TodoList = () => {
+const TodoList = ({ setLoggedIn, loggedIn }) => {
   const [todos, setTodos] = useState([]);
   const sampleTodos = [1, 2, 3, 4, 5];
   const [loading, setLoading] = useState(false);
@@ -36,7 +36,7 @@ const TodoList = () => {
         color="blackAlpha.700"
       >
         <GridItem area={"header"} justifyContent={"center"}>
-          <Header />
+          <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
         </GridItem>
         <GridItem area={"main"}>
           <Container>
