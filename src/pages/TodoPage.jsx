@@ -6,11 +6,14 @@ import TasksList from "../components/TasksList";
 import TaskSkeleton from "../components/TaskSkeleton";
 import { getTasks } from "../api/tasksApi";
 import { getToken } from "../storage/sessionStorage";
+import TasksFilter from "../components/TasksFilter";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const sampleTodos = [1, 2, 3, 4, 5];
   const [loading, setLoading] = useState(false);
+  const [filteredTodos, setFilteredTodos] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     setLoading(true);
@@ -18,12 +21,26 @@ const TodoList = () => {
     getTasks(token)
       .then((response) => {
         setTodos(response.data.tasks);
+        setFilteredTodos(response.data.tasks);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    setFilteredTodos(todos);
+    setFilter("all");
+  }, [todos]);
+
+  useEffect(() => {
+    if (filter === "all") {
+      setFilteredTodos(todos);
+    } else {
+      setFilteredTodos(todos.filter((todo) => todo.status == filter));
+    }
+  }, [filter]);
 
   return (
     <>
@@ -37,9 +54,10 @@ const TodoList = () => {
         <GridItem area={"main"}>
           <Container>
             <AddTask todos={todos} setTodos={setTodos} />
+            <TasksFilter filter={filter} handleFilterChange={setFilter} />
             {loading &&
               sampleTodos.map((_, index) => <TaskSkeleton key={index} />)}
-            <TasksList todos={todos} setTodos={setTodos} />
+            <TasksList todos={filteredTodos} setTodos={setTodos} />
           </Container>
         </GridItem>
       </Grid>
