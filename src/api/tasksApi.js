@@ -37,4 +37,24 @@ async function deleteTask(id) {
   return result;
 }
 
-export { getTasks, createTask, deleteTask };
+async function editTask(task) {
+  const token = getToken();
+  const result = await apiClient.put(
+    `/tasks/${task.id}`,
+    {
+      task: {
+        description: task.description,
+        status: task.status,
+      },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return result;
+}
+
+export { getTasks, createTask, deleteTask, editTask };

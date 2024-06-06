@@ -51,7 +51,7 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
         );
         setLoggedIn(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   return (

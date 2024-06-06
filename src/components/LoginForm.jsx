@@ -43,7 +43,7 @@ const UserLoginForm = ({ toggleShowSignUp, showSignUp, setLoggedIn }) => {
         setSessionStorage(token, user.name);
         setLoggedIn(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   return (
