@@ -47,11 +47,7 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
     signUpUser(data)
       .then((response) => {
         const user = response.data.user;
-
-        setSessionStorage(
-          response.data.token,
-          JSON.stringify({ name: user.name })
-        );
+        setSessionStorage(response.data.token, user.name);
         navigate("/");
       })
       .catch((err) => {

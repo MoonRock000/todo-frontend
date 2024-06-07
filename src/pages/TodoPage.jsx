@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, GridItem, Container } from "@chakra-ui/react";
+import { Grid, GridItem, Container, Card } from "@chakra-ui/react";
 import Header from "../components/Header";
 import AddTask from "../components/AddTask";
 import TasksList from "../components/TasksList";
@@ -9,6 +9,7 @@ import { getToken } from "../storage/sessionStorage";
 import TasksFilter from "../components/TasksFilter";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Progress from "../components/Progress";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -57,6 +58,9 @@ const TodoList = () => {
         <GridItem area={"main"}>
           <Container>
             <AddTask todos={todos} setTodos={setTodos} />
+            <Card marginBottom={15} padding={5} justifyContent={"center"}>
+              <Progress todos={todos} />
+            </Card>
             <TasksFilter filter={filter} handleFilterChange={setFilter} />
             {loading &&
               sampleTodos.map((_, index) => <TaskSkeleton key={index} />)}
