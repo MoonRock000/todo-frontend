@@ -5,18 +5,17 @@ import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 
 function App() {
-
   return (
-    <div >
+    <div>
       <Header />
       <Routes>
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/" element={<AuthPage />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<TodoPage />} />
+          <Route path="/todos" element={<TodoPage />} />
         </Route>
       </Routes>
     </div>
-  )
+  );
 }
 
 export default App;

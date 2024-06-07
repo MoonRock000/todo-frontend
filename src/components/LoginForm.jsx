@@ -45,7 +45,7 @@ const UserLoginForm = ({ toggleShowSignUp, showSignUp }) => {
         const user = response.data.user;
         const token = response.data.token;
         setSessionStorage(token, user.name);
-        navigate("/");
+        navigate("/todos");
       })
       .catch((err) => {
         const error = err?.response?.data?.error || "Server Error";

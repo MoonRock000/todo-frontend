@@ -48,7 +48,7 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
       .then((response) => {
         const user = response.data.user;
         setSessionStorage(response.data.token, user.name);
-        navigate("/");
+        navigate("/todos");
       })
       .catch((err) => {
         const error = err?.response?.data?.error || "Server Error";

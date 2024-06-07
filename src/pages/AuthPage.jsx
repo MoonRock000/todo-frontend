@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
-import Header from "../components/Header";
 import UserSignupForm from "../components/SignUpForm";
 import UserLoginForm from "../components/LoginForm";
 import { ToastContainer } from "react-toastify";
