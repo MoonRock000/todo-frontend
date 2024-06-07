@@ -12,6 +12,7 @@ import {
 import { deleteTask, editTask } from "../api/tasksApi";
 import { useState } from "react";
 import { EditTaskModal } from "./EditTaskModal";
+import { toast } from "react-toastify";
 
 const TasksList = ({ todos, setTodos }) => {
   const [edit, setEdit] = useState(false);
@@ -51,8 +52,13 @@ const TasksList = ({ todos, setTodos }) => {
                   deleteTask(todo.id)
                     .then((response) => {
                       setTodos(response.data.tasks);
+                      toast.success("Task Deleted Successfully!");
                     })
-                    .catch((error) => {})
+                    .catch((error) => {
+                      toast.error(
+                        "Could not delete task: " + error.response.data.errors
+                      );
+                    })
                 }
               >
                 Delete
@@ -77,8 +83,14 @@ const TasksList = ({ todos, setTodos }) => {
                   })
                     .then((response) => {
                       setTodos(response.data.tasks);
+                      toast.success("Task marked successfully!");
                     })
-                    .catch((error) => {});
+                    .catch((error) => {
+                      toast.error(
+                        "Could not edit task: " +
+                          error.response.data.errors.join("\n")
+                      );
+                    });
                 }}
               >
                 Mark As {todo.status == "complete" ? " Pending" : " Complete"}

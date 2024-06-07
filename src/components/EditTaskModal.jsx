@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { editTask } from "../api/tasksApi";
+import { toast } from "react-toastify";
 
 export function EditTaskModal({ openModal, setOpenModal, task, setTodos }) {
   const { onClose } = useDisclosure();
@@ -49,8 +50,15 @@ export function EditTaskModal({ openModal, setOpenModal, task, setTodos }) {
                   .then((response) => {
                     setTodos(response.data.tasks);
                     setOpenModal(false);
+                    toast.success("Task edited successfully!");
                   })
-                  .catch((error) => {});
+                  .catch((error) => {
+                    setOpenModal(false);
+                    toast.error(
+                      "Error: Failed to Edit task: \n" +
+                        error.response.data.errors.join("\n")
+                    );
+                  });
               }}
             >
               Save

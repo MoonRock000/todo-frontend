@@ -2,12 +2,14 @@ import { InputGroup, InputLeftElement, Input, Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { createTask } from "../api/tasksApi";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddTask = ({ setTodos }) => {
   const ref = useRef(null);
 
   return (
     <>
+      <ToastContainer />
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -15,8 +17,15 @@ const AddTask = ({ setTodos }) => {
             createTask(ref.current.value)
               .then((respose) => {
                 setTodos(respose.data.tasks);
+                toast.success("Task Added Successfully");
               })
-              .catch((e) => {});
+              .catch((e) => {
+                console.log(e);
+                toast.error(
+                  "Error: Failed to add task: \n" +
+                    e.response.data.errors.join("\n")
+                );
+              });
             event.target.reset();
           }
         }}
@@ -34,8 +43,7 @@ const AddTask = ({ setTodos }) => {
             color="teal"
           />
           <Button type="submit" colorScheme="teal">
-            {" "}
-            Add{" "}
+            Add
           </Button>
         </InputGroup>
       </form>

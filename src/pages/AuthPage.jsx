@@ -3,6 +3,8 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "../components/Header";
 import UserSignupForm from "../components/SignUpForm";
 import UserLoginForm from "../components/LoginForm";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AuthPage = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -15,6 +17,7 @@ const AuthPage = () => {
       gap="1"
       color="blackAlpha.700"
     >
+      <ToastContainer />
       <GridItem area={"main"}>
         {showSignUp && (
           <UserSignupForm

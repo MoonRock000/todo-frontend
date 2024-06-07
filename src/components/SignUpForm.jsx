@@ -15,6 +15,7 @@ import {
 import { signUpUser } from "../api/userAuth";
 import { setSessionStorage } from "../storage/sessionStorage";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 // Define the validation schema using zod
 const schema = z.object({
   name: z
@@ -53,7 +54,9 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
         );
         navigate("/");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        toast.error("Could not Sign Up: " + err.response.data.error);
+      });
   };
 
   return (

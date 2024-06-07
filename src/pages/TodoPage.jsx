@@ -7,6 +7,8 @@ import TaskSkeleton from "../components/TaskSkeleton";
 import { getTasks } from "../api/tasksApi";
 import { getToken } from "../storage/sessionStorage";
 import TasksFilter from "../components/TasksFilter";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -26,6 +28,7 @@ const TodoList = () => {
       })
       .catch((error) => {
         setLoading(false);
+        toast.error("Could not fetch tasks: " + error.response.data.errors);
       });
   }, []);
 
