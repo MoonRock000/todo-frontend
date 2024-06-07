@@ -54,10 +54,10 @@ const TasksList = ({ todos, setTodos }) => {
                       setTodos(response.data.tasks);
                       toast.success("Task Deleted Successfully!");
                     })
-                    .catch((error) => {
-                      toast.error(
-                        "Could not delete task: " + error.response.data.errors
-                      );
+                    .catch((err) => {
+                      const error =
+                        err?.response?.data?.error || "Server Error";
+                      toast.error("Could not delete task: " + error);
                     })
                 }
               >
@@ -85,11 +85,11 @@ const TasksList = ({ todos, setTodos }) => {
                       setTodos(response.data.tasks);
                       toast.success("Task marked successfully!");
                     })
-                    .catch((error) => {
-                      toast.error(
-                        "Could not edit task: " +
-                          error.response.data.errors.join("\n")
-                      );
+                    .catch((err) => {
+                      const error =
+                        err?.response?.data?.errors?.join("\n") ||
+                        "Server Error";
+                      toast.error("Could not edit task: " + error);
                     });
                 }}
               >

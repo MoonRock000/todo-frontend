@@ -48,7 +48,8 @@ const UserLoginForm = ({ toggleShowSignUp, showSignUp }) => {
         navigate("/");
       })
       .catch((err) => {
-        toast.error("Could not log in: " + err.response.data.error);
+        const error = err?.response?.data?.error || "Server Error";
+        toast.error("Could not log in: " + error);
       });
   };
 

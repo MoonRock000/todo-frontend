@@ -51,7 +51,8 @@ const UserSignupForm = ({ toggleShowSignUp, showSignUp }) => {
         navigate("/");
       })
       .catch((err) => {
-        toast.error("Could not Sign Up: " + err.response.data.error);
+        const error = err?.response?.data?.error || "Server Error";
+        toast.error("Could not Sign Up: " + error);
       });
   };
 

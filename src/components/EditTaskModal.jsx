@@ -52,12 +52,12 @@ export function EditTaskModal({ openModal, setOpenModal, task, setTodos }) {
                     setOpenModal(false);
                     toast.success("Task edited successfully!");
                   })
-                  .catch((error) => {
+                  .catch((err) => {
+                    const error =
+                      err?.response?.data?.errors?.join("\n") || "Server Error";
                     setOpenModal(false);
-                    toast.error(
-                      "Error: Failed to Edit task: \n" +
-                        error.response.data.errors.join("\n")
-                    );
+
+                    toast.error("Error: Failed to Edit task: \n" + error);
                   });
               }}
             >

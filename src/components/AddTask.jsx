@@ -19,12 +19,10 @@ const AddTask = ({ setTodos }) => {
                 setTodos(respose.data.tasks);
                 toast.success("Task Added Successfully");
               })
-              .catch((e) => {
-                console.log(e);
-                toast.error(
-                  "Error: Failed to add task: \n" +
-                    e.response.data.errors.join("\n")
-                );
+              .catch((err) => {
+                const error =
+                  err?.response?.data?.errors?.join("\n") || "Server Error";
+                toast.error("Error: Failed to add task: \n" + error);
               });
             event.target.reset();
           }

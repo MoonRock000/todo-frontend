@@ -27,9 +27,10 @@ const TodoList = () => {
         setFilteredTodos(response.data.tasks);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
-        toast.error("Could not fetch tasks: " + error.response.data.errors);
+        const error = err?.response?.data?.errors || "Server Error";
+        toast.error("Could not fetch tasks: " + error);
       });
   }, []);
 
