@@ -1,5 +1,5 @@
 const config = {
-  baseURL: "http://localhost:3000",
+  baseURL: "https://todo-backend-ma.fly.dev",
 };
 
 export { config };
